@@ -8,6 +8,7 @@ import { buildTokenProfileId, validateAnthropicSetupToken } from "../../auth-tok
 import { applyGoogleGeminiModelDefault } from "../../google-gemini-model-default.js";
 import {
   applyAuthProfileConfig,
+  applyChutesConfig,
   applyKimiCodeConfig,
   applyMinimaxApiConfig,
   applyMinimaxConfig,
@@ -20,6 +21,7 @@ import {
   applyXiaomiConfig,
   applyZaiConfig,
   setAnthropicApiKey,
+  setChutesApiKey,
   setGeminiApiKey,
   setKimiCodeApiKey,
   setMinimaxApiKey,
@@ -271,6 +273,25 @@ export async function applyNonInteractiveAuthChoice(params: {
       mode: "api_key",
     });
     return applyMoonshotConfig(nextConfig);
+  }
+
+  if (authChoice === "chutes-api-key") {
+    const resolved = await resolveNonInteractiveApiKey({
+      provider: "chutes",
+      cfg: baseConfig,
+      flagValue: opts.chutesApiKey,
+      flagName: "--chutes-api-key",
+      envVar: "CHUTES_API_KEY",
+      runtime,
+    });
+    if (!resolved) return null;
+    if (resolved.source !== "profile") await setChutesApiKey(resolved.key);
+    nextConfig = applyAuthProfileConfig(nextConfig, {
+      profileId: "chutes:default",
+      provider: "chutes",
+      mode: "api_key",
+    });
+    return applyChutesConfig(nextConfig);
   }
 
   if (authChoice === "kimi-code-api-key") {

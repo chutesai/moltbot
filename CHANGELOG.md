@@ -14,6 +14,8 @@ Status: beta.
 - Memory Search: allow extra paths for memory indexing. (#3600) Thanks @kira-ariaki.
 
 ### Changes
+- Model Providers: add Chutes AI as a provider with dynamic model discovery and TEE support. (#2404)
+- Rebrand: rename the npm package/CLI to `moltbot`, add a `moltbot` compatibility shim, and move extensions to the `@moltbot/*` scope.
 - Providers: add Venice AI integration; update Moonshot Kimi references to kimi-k2.5; update MiniMax API endpoint/format. (#2762, #3064)
 - Providers: add Xiaomi MiMo (mimo-v2-flash) support and onboarding flow. (#3454) Thanks @WqyJh.
 - Telegram: quote replies, edit-message action, silent sends, sticker support + vision caching, linkPreview toggle, plugin sendPayload support. (#2900, #2394, #2382, #2548, #1700, #1917)
